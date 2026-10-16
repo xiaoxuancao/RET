@@ -88,7 +88,7 @@ nohup stdbuf -oL -eL bash hnsw_laet_test_k100.sh    > ../log/laet/laet_online.lo
 ```
 
 ## About
-Our experiments on the HNSW index were conducted based on *[DARTH]([https://github.com/MChatzakis/DARTH.git]) code.
+Our experiments on the HNSW index were conducted based on [DARTH](https://github.com/MChatzakis/DARTH.git) code.
 
 This repository contains the implementation and integration of RET in the FAISS library, developed by Facebook Research. 
 All original FAISS code and components remain under their respective licenses and rules as selected by the developers. 
