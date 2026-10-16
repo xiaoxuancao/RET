@@ -54,28 +54,38 @@ Our evaluation utilized the following datasets:
 The datasets require a minor preprocessing step to be used with RET. For details, refer to the scripts of [utils](./notebooks_scripts/utils).
 
 ### Step 1: Build indexing
+```bash
 cd experiments
 cd sh
-nohup stdbuf -oL -eL bash hnsw_create_index.sh > ../log/index.log 2>&1 & 
+nohup stdbuf -oL -eL bash hnsw_create_index.sh > ../log/index.log 2>&1 &
+```
 
 ### Step 2: Generate training data
+```bash
 nohup stdbuf -oL -eL bash darth_training_data_generation.sh > ../log/darth/darth_offline.log 2>&1 &
 nohup stdbuf -oL -eL bash ret_training_data_generation.sh   > ../log/ret/ret_offline.log   2>&1 &
+```
 
 ### Step 3: Train predictor models
+```bash
 python -u ret_training.py   > ../train_log/ret_model.log   2>&1 &
 python -u laet_training.py  > ../train_log/laet_model.log  2>&1 &
 python -u darth_training.py > ../train_log/darth_model.log 2>&1 &
+```
 
 ### Step 4: Extract parameters (DARTH / LAET)
+```bash
 python -u extract_data_stats.py > ../train_log/darth_stat.log 2>&1 &
 nohup stdbuf -oL -eL bash hnsw_laet_multiplier.sh > ../log/laet/laet_multiplier.log 2>&1 &
+```
 
 ### Step 5: Online testing
+```bash
 nohup stdbuf -oL -eL bash optimal_recall_test.sh   > ../log/ret/optimal_online.log 2>&1 &
 nohup stdbuf -oL -eL bash hnsw_ret_test.sh          > ../log/ret/ret_online.log     2>&1 &
 nohup stdbuf -oL -eL bash hnsw_darth_test_k100.sh   > ../log/darth/darth_online.log 2>&1 &
 nohup stdbuf -oL -eL bash hnsw_laet_test_k100.sh    > ../log/laet/laet_online.log  2>&1 &
+```
 
 ## About
 This repository contains the implementation and integration of DARTH in the FAISS library, developed by Facebook Research. 
